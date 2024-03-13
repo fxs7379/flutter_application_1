@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:window_manager/window_manager.dart';
 
-
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
 
@@ -18,33 +17,33 @@ class loginPage extends StatefulWidget {
 
 class _loginPageState extends State<loginPage> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     // bool? isRememberMe = Status.prefs.getBool("isRememberMe");
     // Status.isRememberMe = isRememberMe ?? Status.isRememberMe;
     // if(Status.isRememberMe){
-      // String? username = Status.prefs.getString("username");
-      // String? password = Status.prefs.getString("password");
-      // Status.user = User(0, username ?? "", password ??"",  "", "", "",0);
+    // String? username = Status.prefs.getString("username");
+    // String? password = Status.prefs.getString("password");
+    // Status.user = User(0, username ?? "", password ??"",  "", "", "",0);
     // }
   }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     String username = "";
     String password = "";
-    if(Status.isRememberMe){
+    if (Status.isRememberMe) {
       username = Status.user.username;
       password = Status.user.password;
     }
-    double height = MediaQuery.of(context).size.height;//获得屏幕高度
-    return  Scaffold(
+    double height = MediaQuery.of(context).size.height; //获得屏幕高度
+    return Scaffold(
       body: Stack(
-        alignment: Alignment.center,//设置居中
+        alignment: Alignment.center, //设置居中
         children: [
           Container(
-            decoration: const BoxDecoration(//decoration：背景设定
+            decoration: const BoxDecoration(
+              //decoration：背景设定
               image: DecorationImage(
                 image: AssetImage("/background.jpg"),
                 fit: BoxFit.cover,
@@ -53,11 +52,11 @@ class _loginPageState extends State<loginPage> {
           ),
           Container(
             constraints: const BoxConstraints(maxWidth: 600),
-            padding: const EdgeInsets.only(left: 50,right: 50),
+            padding: const EdgeInsets.only(left: 50, right: 50),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background.withOpacity(0.5),
             ),
-            child:  Column(
+            child: Column(
               children: [
                 const SizedBox(height: 40, child: Text("")),
                 Text(
@@ -65,7 +64,10 @@ class _loginPageState extends State<loginPage> {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onBackground.withOpacity(0.8),//withopacity：透明度设置
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onBackground
+                        .withOpacity(0.8), //withopacity：透明度设置
                   ),
                 ),
                 const Expanded(child: Text("")),
@@ -80,7 +82,7 @@ class _loginPageState extends State<loginPage> {
                     label: Text(
                       "用户名",
                       style: TextStyle(
-                        fontWeight: FontWeight.w500,//设置字体粗细，默认400
+                        fontWeight: FontWeight.w500, //设置字体粗细，默认400
                         fontSize: 20,
                       ),
                     ),
@@ -91,13 +93,16 @@ class _loginPageState extends State<loginPage> {
                     fontSize: 20,
                   ),
                   onChanged: (value) {
-                    username = value;                    
+                    username = value;
                   },
                 ),
-                const SizedBox(height: 40,child: Text(""),),
+                const SizedBox(
+                  height: 40,
+                  child: Text(""),
+                ),
                 TextFormField(
                   initialValue: password,
-                  decoration:  const InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
@@ -111,7 +116,7 @@ class _loginPageState extends State<loginPage> {
                   ),
                   obscureText: true,
                   textAlign: TextAlign.center,
-                  style:  const TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
                   ),
@@ -119,11 +124,12 @@ class _loginPageState extends State<loginPage> {
                     password = value;
                   },
                 ),
-                const Expanded(flex: 3, child:Text("")),
+                const Expanded(flex: 3, child: Text("")),
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     onLoginPressed(username, password);
-                  }, child: Container(
+                  },
+                  child: Container(
                     padding: const EdgeInsets.all(10),
                     child: const Text(
                       "登录",
@@ -134,9 +140,9 @@ class _loginPageState extends State<loginPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),//竖向排列
+                const SizedBox(height: 20), //竖向排列
                 ElevatedButton(
-                  onPressed:(){
+                  onPressed: () {
                     windowManager.close();
                   },
                   child: Container(
@@ -161,31 +167,30 @@ class _loginPageState extends State<loginPage> {
       ),
     );
   }
-}
 
-
-onLoginPressed(String username,String password) async{
-  BotToast.showLoading();
-  String passwordsha256 = sha256.convert(utf8.encode(password)).toString();
-  var response = await http.post(
-    Uri.parse("${Status.baseUrl}/login"),
-    body: {"username": username, "password": passwordsha256},
-  );
-  String bodyString = utf8.decode(response.bodyBytes);
-  BotToast.closeAllLoading();
-  if(bodyString == ""){
-    BotToast.showText(text:"登录失败，请确认用户名和密码输入正确");
-  }
-  else{
-    var body = jsonDecode(bodyString);
-    Status.user = User.objToUser(body);
-    Status.user.password = password;
-    BotToast.showText(
-      text: "登录成功，欢迎您！");
-      // if(Status.isRememberMe){
-        // Status.prefs.setString("username", Status.user.username);
-        // Status.prefs.setString("password", Status.user.password);
-      // }
-      Status.login = true;
+  onLoginPressed(String username, String password)  {
+    Status.login = true;
+    setState(() {});
+    // BotToast.showLoading();
+    // String passwordsha256 = sha256.convert(utf8.encode(password)).toString();
+    // var response = await http.post(
+    //   Uri.parse("${Status.baseUrl}/login"),
+    //   body: {"username": username, "password": passwordsha256},
+    // );
+    // String bodyString = utf8.decode(response.bodyBytes);
+    // BotToast.closeAllLoading();
+    // if (bodyString == "") {
+    //   BotToast.showText(text: "登录失败，请确认用户名和密码输入正确");
+    // } else {
+    //   var body = jsonDecode(bodyString);
+    //   Status.user = User.objToUser(body);
+    //   Status.user.password = password;
+    //   BotToast.showText(text: "登录成功，欢迎您！");
+    //   // if(Status.isRememberMe){
+    //   // Status.prefs.setString("username", Status.user.username);
+    //   // Status.prefs.setString("password", Status.user.password);
+    //   // }
+    //   Status.login = true;
+    // }
   }
 }
