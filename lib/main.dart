@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/Login.dart';
+import 'package:flutter_application_1/homePage.dart';
 import 'package:flutter_application_1/status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ void main() async {
   try {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
-      size: Size(800, 600),
+      size: Size(1440, 900),
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
@@ -27,10 +27,14 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,13 +45,17 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("毕设"),
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        body: Text("body"),
-      ),
+      home: Status.login
+          ? const HomePage()
+          : Scaffold(
+              floatingActionButton: FloatingActionButton(
+                child: Text("登录"),
+                onPressed: () {
+                  Status.login = true;
+                  setState(() {});
+                },
+              ),
+            ),
     );
   }
 }
