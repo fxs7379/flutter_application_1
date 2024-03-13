@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/Login.dart';
+import 'package:flutter_application_1/login.dart';
 import 'package:flutter_application_1/status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -27,27 +27,26 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("毕设"),
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        body: Text("body"),
-      ),
+      home:loginPage(),
+      
     );
+
+    
   }
+
 }

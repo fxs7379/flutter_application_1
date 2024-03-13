@@ -1,8 +1,8 @@
 class User {
   int userid;
   String username;
-  String password;
   String regin;
+  String password;
   String phone_number;
   String onjob;
   int type;
@@ -10,8 +10,8 @@ class User {
   User(
     this.userid,
     this.username,
-    this.password,
     this.regin,
+    this.password,
     this.phone_number,
     this.onjob,
     this.type,
@@ -20,8 +20,8 @@ class User {
     return User(
       map["userid"],
       map["username"],
-      map["password"],
       map["regin"],
+      map["password"],
       map["phone_number"],
       map["onjob"],
       map["type"],
