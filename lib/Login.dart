@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         // 注册路由表
-        home: Text('aaa'), 
+        home: Text('aaha'),  
         routes: {
           "/": (context) => const HomePage(title: "登录"), // 首页路由
         });
