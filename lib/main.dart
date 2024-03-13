@@ -1,4 +1,5 @@
 import 'package:flutter_application_1/homePage.dart';
+import 'package:flutter_application_1/login.dart';
 import 'package:flutter_application_1/status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,

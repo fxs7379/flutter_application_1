@@ -9,5 +9,4 @@ class Status {
   static int colorId = 2;
   static bool isDark = false;
   static bool isRememberMe = false;
-  static late SharedPreferences prefs;
 }
