@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_application_1/homePage.dart';
 import 'package:flutter_application_1/login.dart';
 import 'package:flutter_application_1/status.dart';
@@ -36,6 +38,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,17 +62,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: Status.login
-          ? const HomePage()
-          : Scaffold(
-              floatingActionButton: FloatingActionButton(
-                child: Text("登录"),
-                onPressed: () {
-                  Status.login = true;
-                  setState(() {});
-                },
-              ),
-            ),
+      home: Status.login ? const HomePage() : const loginPage(),
     );
   }
 }
